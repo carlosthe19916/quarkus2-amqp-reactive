@@ -28,7 +28,7 @@ public class ReactiveTemperatureResource {
                     NamespaceEntity namespaceEntity = new NamespaceEntity();
                     namespaceEntity.id = UUID.randomUUID().toString();
                     namespaceEntity.name = "any name";
-                    return namespaceEntity.<NamespaceEntity>persist();
+                    return namespaceEntity.<NamespaceEntity>persist().map(unused -> namespaceEntity);
                 })
                 .chain(namespaceEntity -> Uni.createFrom()
                         .completionStage(emitter.send(namespaceEntity.id))
